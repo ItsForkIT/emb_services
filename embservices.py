@@ -1,7 +1,6 @@
 from flask import Flask
 from flask import request
 from flask import request, render_template
-from flask import Flask
 import os, urllib, csv
 
 app = Flask (__name__)

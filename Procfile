@@ -1,1 +1,1 @@
-web: gunicorn appGIS:app --log-file=-
+web: gunicorn embservices:app
