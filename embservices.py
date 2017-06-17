@@ -15,11 +15,11 @@ def table():
 
 	emb2 = []
 	for rows in xrange(1,events-1):
-		emb2.append(emb_contents[rows])
-		
-	events = len(emb_contents)
+		if rows % 5 == 0:
+		 	emb2.append(emb_contents[rows])
 
-	return render_template('table.html', events=events-2, data_records=emb2)
+	emb_len = len(emb2)
+	return render_template('table.html', events=emb_len, data_records=emb2)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',debug=True)
