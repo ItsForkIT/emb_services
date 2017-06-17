@@ -11,10 +11,15 @@ def table():
 	
 	response = urllib.urlopen(file_url)
 	emb_contents = list(csv.reader(response))
-	
 	events = len(emb_contents)
 
-	return render_template('table.html', events=events, data_records=emb_contents)
+	emb2 = []
+	for rows in xrange(1,events-1):
+		emb2.append(emb_contents[rows])
+		
+	events = len(emb_contents)
+
+	return render_template('table.html', events=events-2, data_records=emb2)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0',debug=True)
