@@ -7,16 +7,12 @@ app = Flask (__name__)
 
 @app.route('/')
 def table():
-	file_url = 'https://gist.githubusercontent.com/hridaydutta123/f666b6990d5b00c2a862445230e4816c/raw/ef4d334845ebeb3d77cc09bfe87c65160df8b738/gistfile1.txt'
+	file_url = 'https://raw.githubusercontent.com/Titokhan/emb_rpi_data/master/emb_data.csv'
 	
 	response = urllib.urlopen(file_url)
 	emb_contents = list(csv.reader(response))
+	
 	events = len(emb_contents)
-    
-	minTime = emb_contents[0][1]
-	maxTime = emb_contents[events-1][1]
-	print minTime
-	print maxTime
 
 	return render_template('table.html', events=events, data_records=emb_contents)
 
