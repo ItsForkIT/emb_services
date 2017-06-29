@@ -36,10 +36,14 @@
           <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
           <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
-    <script language="javascript" type="text/javascript" src="libraries/p5.js"></script>
-    <script language="javascript" src="libraries/p5.dom.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
-    <script language="javascript" type="text/javascript" src="sketch.js"></script>
+    <script src="{{ url_for('static', filename='p5.js') }}"></script>
+  <script src="{{ url_for('static', filename='p5.dom.js') }}"></script>
+  <script src="{{ url_for('static', filename='firebase.js') }}"></script>
+  <script src="{{ url_for('static', filename='sketch.js') }}"></script>   
+
+
+  
+
 <script type="text/javascript">
   $(document).ready(function() {
     $('#datatable').DataTable();
@@ -65,7 +69,7 @@
         		<style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
-      #map {
+      #map1 {
         height: 100%;
       }
       /* Optional: Makes the sample page fill the window. */
@@ -105,17 +109,17 @@
       <button onclick="changeRadius()">Change radius</button>
       
     </div>
-    <div id="map"></div>
+    <div id="map1"></div>
     <script>
 
       // This example requires the Visualization library. Include the libraries=visualization
       // parameter when you first load the API. For example:
       // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=visualization">
 
-      var map, heatmap;
+      var map1, heatmap;
 
       function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
+        map1 = new google.maps.Map(document.getElementById('map1'), {
           zoom: 13,
           center: {lat: 23.775, lng: 87.434},
           mapTypeId: 'satellite'
@@ -123,12 +127,12 @@
 
         heatmap = new google.maps.visualization.HeatmapLayer({
           data: getPoints(),
-          map: map
+          map1: map1
         });
       }
 
       function toggleHeatmap() {
-        heatmap.setMap(heatmap.getMap() ? null : map);
+        heatmap.setMap(heatmap.getMap() ? null : map1);
       }
 
       function changeGradient() {
@@ -208,10 +212,9 @@
                     
                     <tr>
                       
-                          <td id="scorelist"> </td>
+                          
                         <p>
-    <ol id="scorelist">
-    </ol>
+    
     
   </p>
                     </tr>
@@ -322,9 +325,15 @@
     <script src="{{ url_for('static', filename='dataTables.bootstrap.min.js') }}"</script>
     <script src="{{ url_for('static', filename='dataTables.keyTable.min.js') }}"</script>
     <script src="{{ url_for('static', filename='dataTables.responsive.min.js') }}"</script>
-     
+    
+  <div id="game">
+  </div>
+  <p>
+    <ol id="scorelist">
+    </ol>
+    
+  </p>
 </body>
-
 </html>
 <!--
 -->
