@@ -7,14 +7,14 @@ app = Flask (__name__)
 
 @app.route('/')
 def table():
-	file_url = 'https://raw.githubusercontent.com/Titokhan/emb_rpi_data/master/emb_data.csv'
-	
+	file_url = 'https://raw.githubusercontent.com/Titokhan/emb_rpi_data_test/master/emb_data.csv'
+
 	response = urllib.urlopen(file_url)
 	emb_contents = list(csv.reader(response))
 	events = len(emb_contents)
 
 	emb2 = []
-	for rows in xrange(1,events-1):
+	for rows in xrange(2,events-1):
 		if rows % 5 == 0:
 		 	emb2.append(emb_contents[rows])
 
