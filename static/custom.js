@@ -5,6 +5,9 @@
  */
 
 /** ******  left menu  *********************** **/
+$(document).ready(function() {
+    $('#datatable1').DataTable();
+} );
 $(function () {
     $('#sidebar-menu li ul').slideUp();
     $('#sidebar-menu li').removeClass('active');

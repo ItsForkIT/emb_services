@@ -1,128 +1,97 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>DisarmGIS</title>
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
-    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
-    <style>
-        #map { width: 1600px; height: 1024px; }
-        body { font: 16px/1.4 "Helvetica Neue", Arial, sans-serif; }
-        .ghbtns { position: relative; top: 4px; margin-left: 5px; }
-        a { color: #0077ff; }
+{% extends "base.html" %}
+{% block title %}
+Index
+{% endblock %}
+{% block content %}
         
-    </style>
-</head>
-<body>
-<table>
-    <tr>
-        <th>Date</th>
-        <th>Time</th>
-        <th>Event</th>
-    </tr>
+        <div class="">
 
-    {% for row in range(totalEvents) %}
-        <tr>
-            asdasd
-            <td> asdas </td>
-            adasad
-        </tr>
-    {% endfor %}
-</table>
-<div id="map"></div>
+          <div class="page-title">
+            <div class="title_left">
+              <h3>
+                    Full Data Record
+                    
+                </h3>
+            </div>
 
-<!-- <script src="../node_modules/simpleheat/simpleheat.js"></script>
-<script src="../src/HeatLayer.js"></script> -->
-
-<script src="{{ url_for('static', filename='gpslogs.js') }}"></script>
-<script src="{{ url_for('static', filename='heatvals.js') }}"></script>
-<script src="{{ url_for('static', filename='chroma.js') }}"></script>
-<script>
-
-var greenIcon = L.icon({
-    iconUrl:  "{{ url_for('static', filename='leaf-green.png') }}",
-
-    iconSize:     [6, 6], // size of the icon
-
- });
-
-var map = L.map('map').setView([23.546788,87.291526], 16);
-
-var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-    noWrap      : true,
-}).addTo(map);
-
-var situationalDataTypeColor = {}
-situationalDataTypeColor['Victim'] = L.icon({
-    iconUrl: "{{ url_for('static', filename='victim.png') }}",
-    
-    iconSize:     [15, 15], // size of the icon
-});
-situationalDataTypeColor['Health'] = L.icon({
-    iconUrl:  "{{ url_for('static', filename='health.png') }}",
-    
-    iconSize:     [15, 15], // size of the icon
-});
-situationalDataTypeColor['Food'] = L.icon({
-    iconUrl:  "{{ url_for('static', filename='food.png') }}",
-    
-    iconSize:     [15, 15], // size of the icon          
-});
-situationalDataTypeColor['Shelter'] = L.icon({
-    iconUrl: "{{ url_for('static', filename='shelter.png') }}",
-    
-    iconSize:     [15, 15], // size of the icon
-   
-});
+            <div class="title_right">
+              <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Search for...">
+                  <span class="input-group-btn">
+                            <button class="btn btn-default" type="button">Go!</button>
+                        </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"></div>
 
 
-// Add GPS Logs
-for (var i = 0;i<gpslogs.length;i++)
-{
-    console.log(gpslogs[i][0]);
-    var marker = L.circle([gpslogs[i][0], gpslogs[i][1]], 1, {color: "#50ce56",
-        fillColor: "#84ce87",
-        fillOpacity: 0.5}).addTo(map);
-}
-// Add Data
-for (var i = 0; i < addressPoints.length; i++) {
-    console.log(addressPoints[i][2]);
-    var m = L.marker([addressPoints[i][0], addressPoints[i][1]], {icon: situationalDataTypeColor[addressPoints[i][2]]}).bindPopup(addressPoints[i][4] + ": " + addressPoints[i][3]).addTo(map);
- //   console.log(addressPoints[i]);
-}
+          <div class="row">
 
-// Add DB Markers (Circle)
-/*L.circleMarker([23.543961,87.289273], {
-            radius: 30,
-            fillColor: "#457ad1",
-            color: "#000",
-            weight: 1,
-            opacity: 1,
-            fillOpacity: 0.3
-        }).addTo(map);
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Full Data Record</h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Settings 1</a>
+                        </li>
+                        <li><a href="#">Settings 2</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
 
-L.circleMarker([23.54951,87.29332], {
-            radius: 30,
-            fillColor: "#457ad1",
-            color: "#000",
-            weight: 1,
-            opacity: 1,
-            fillOpacity: 0.3
-        }).addTo(map);
-L.circleMarker([23.5544,87.2881], {
-            radius: 30,
-            fillColor: "#457ad1",
-            color: "#000",
-            weight: 1,
-            opacity: 1,
-            fillOpacity: 0.3
-        }).addTo(map);
-/*
-addressPoints = addressPoints.map(function (p) { return [p[0], p[1]]; });
+                  <table id="datatable1" class="table">
+                    <thead>
+                      <tr>
+                         <th>Date</th>
+                            <th>Time</th>
+                            <th>Serial</th>
+                             <th>PM10</th>
+                            <th>PM2.5</th>
+                            <th>PM1</th>
+                             <th>NO2</th>
+                            <th>CO2</th>
+                            <th>CO</th>
+                            <th>Humidity</th>
+                            <th>Temperature</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% if messages %}
+                    {% for message in messages %}
+                    <tr>
+                          <td> {{ messages[message].date }} </td>
+                          <td> {{ messages[message].time }} </td>
+                          <td> {{ messages[message].serial }} </td>
+                          <td> {{ messages[message].pm10 }} </td>
+                          <td> {{ messages[message].pm2 }} </td>
+                          <td> {{ messages[message].pm1 }} </td>
+                          <td> {{ messages[message].no2 }} </td>
+                          <td> {{ messages[message].co2 }} </td>
+                          <td> {{ messages[message].co }} </td>
+                          <td> {{ messages[message].humidity }} </td>
+                          <td> {{ messages[message].temp }} </td>
+                    </tr>
+                {% endfor %}
+                {% endif %}
+                    </tbody>
+                  </table>
 
-var heat = L.heatLayer(addressPoints).addTo(map);
-*/
-
-</script>
-</body>
-</html>
+                </div>
+              </div>
+            </div>
+          </div>
+{% endblock %}

@@ -1,25 +1,33 @@
 from flask import Flask
+from firebase import firebase
 from flask import request
 from flask import request, render_template
-import os, urllib, csv
-
 app = Flask (__name__)
+
+firebase = firebase.FirebaseApplication('https://haha-4cf04.firebaseio.com', None)
 
 @app.route('/')
 def table():
-	file_url = 'https://raw.githubusercontent.com/Titokhan/emb_rpi_data_test/master/emb_data.csv'
+	result = firebase.get('/scores', None)
+  	return render_template('index.html', messages=result)
 
-	response = urllib.urlopen(file_url)
-	emb_contents = list(csv.reader(response))
-	events = len(emb_contents)
+@app.route('/graph')
+def graph():
+	result="CO&CO2"
+	data = firebase.get('/scores', None)
+	return render_template('graph.html', name1=result, messages=data)
 
-	emb2 = []
-	for rows in xrange(2,events-1):
-		if rows % 5 == 0:
-		 	emb2.append(emb_contents[rows])
+@app.route('/graph1')
+def graph1():
+	result="PM Graph"
+	return render_template('graph.html', name1=result, messages=data)
 
-	emb_len = len(emb2)
-	return render_template('table.html', events=emb_len, data_records=emb2)
+@app.route('/graph2')
+def graph2():
+	result="T&H Graph"
+	return render_template('graph.html', name1=result, messages=data)
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0',debug=True)
+if __name__ == '__main__':
+    app.jinja_env.auto_reload = True
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
+    app.run(debug=True, host='0.0.0.0')
