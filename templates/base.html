@@ -14,7 +14,10 @@
   
   <!-- Custom styling plus plugins -->
   <link href="{{ url_for('static', filename='custom.css') }}" rel="stylesheet">
-  <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+  <!-- <script src="{{ url_for('static', filename='jquery.min.js') }}"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <!-- <script src="{{ url_for('static', filename='example.js') }}"></script> -->
   
 </head>
 
@@ -87,7 +90,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <img src="{{ url_for('static',filename='img.jpg' ) }} ">John Doe
+                  <img src="{{ url_for('static',filename='img.jpg' ) }} ">Admin
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
@@ -141,6 +144,9 @@
     <div id="notif-group" class="tabbed_notifications"></div>
   </div>
 
+  <script src="{{ url_for('static', filename='raphael-min.js') }}"></script>
+    <script src="{{ url_for('static', filename='morris.js') }}"></script>
+
   <script src="{{ url_for('static', filename='bootstrap.min.js') }}"></script>
 
   <!-- bootstrap progress js -->
@@ -151,6 +157,7 @@
   <script src="{{ url_for('static', filename='custom.js') }}"></script>
   <!-- pace -->
   <script src="{{ url_for('static', filename='pace.min.js') }}"></script>
+    
 </body>
 
 </html>
