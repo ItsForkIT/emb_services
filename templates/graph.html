@@ -6,88 +6,93 @@ Graph
 <div id="container" class="col-md-6 col-sm-6 col-xs-12" style="width: 1000px; height: 400px; margin: 0 auto"></div>
 <script language="JavaScript">
 $(document).ready(function() {
-   var title = {
-      text: '{{name1}}'   
-   };
-   var subtitle = {
-      text: ''
-   };
-   var xAxis = {
-      categories: [
 
-     			{% for msg in messages3 %}
-         		{{ messages3[msg] }},
-         		{% endfor %}
+    if("{{name}}" == "CO-CO2 Graph")
+    {
+        var data = [];
+        var n1 = "{{n1}}";
+        var n2 = "{{n2}}";
+        var n3 = "";
+        data.push(
+            {% for date,vals in co %}
+                [{{ date }},{{vals}}],
+            {% endfor %}
+        );
+        var data1 = [];
+        data1.push(
+            {% for date,vals in co2 %}
+                [{{ date }},{{vals}}],
+            {% endfor %}
+        );    
+        var data2 = []; 
+    }
+    if("{{name}}" == "PM Graph")
+    {
+        var data = [];
+        var n1 = "{{n1}}";
+        var n2 = "{{n2}}";
+        var n3 = "{{n3}}";
+        data.push(
+            {% for date,vals in pm1 %}
+                [{{ date }},{{vals}}],
+            {% endfor %}
+        );
+        var data1 = [];
+        data1.push(
+            {% for date,vals in pm2 %}
+                [{{ date }},{{vals}}],
+            {% endfor %}
+        );    
+        var data2 = []; 
+        data2.push(
+            {% for date,vals in pm10 %}
+                [{{ date }},{{vals}}],
+            {% endfor %}
+        );
 
-      ]
-   };
-   var yAxis = {
-      title: {
-         text: 'Temperature (\xB0C)'
-      },
-      plotLines: [{
-         value: 0,
-         width: 1,
-         color: '#808080'
-      }]
-   };   
-
-   var tooltip = {
-      valueSuffix: '\xB0C'
-   }
-
-   var legend = {
-      layout: 'vertical',
-      align: 'right',
-      verticalAlign: 'middle',
-      borderWidth: 0,
-      floating: true
-   };
-
-   var series =  [
-      {
-         name: '{{n1}}',
-         data: [
-
-         		{% for msg in messages %}
-         		{{ messages[msg] }},
-         		{% endfor %}
-
-         ]
-      }, 
-      {
-         name: '{{n2}}',
-         data: [
-
-         		{% for msg in messages1 %}
-         		{{ messages1[msg] }},
-         		{% endfor %}
-
-         ]
-      },
-      {
-         name: '{{n3}}',
-         data: [
-
-         		{% for msg in messages2 %}
-         		{{ messages2[msg] }},
-         		{% endfor %}
-
-         ]
-      }
-   ];
-
-   var json = {};
-
-   json.title = title;
-   json.subtitle = subtitle;
-   json.xAxis = xAxis;
-   json.yAxis = yAxis;
-   json.tooltip = tooltip;
-   json.legend = legend;
-   json.series = series;
-
-   $('#container').highcharts(json);
+    }
+    if("{{name}}" == "Temperature-Humidity Graph")
+    {
+        var data = [];
+        var n1 = "{{n1}}";
+        var n2 = "{{n2}}";
+        var n3 = "";
+        data.push(
+            {% for date,vals in temp %}
+                [{{ date }},{{vals}}],
+            {% endfor %}
+        );
+        var data1 = [];
+        data1.push(
+            {% for date,vals in humid %}
+                [{{ date }},{{vals}}],
+            {% endfor %}
+        );    
+        var data2 = []; 
+    }
+    
+    var chart = new Highcharts.Chart({
+        title : {
+            text: '{{name}}'   
+        },
+        global: {
+            useUTC: false,
+        },
+        chart: {
+            renderTo: 'container',
+            zoomType: 'xy'
+        },
+        xAxis: {
+            type : 'datetime'
+        },
+        yAxis : {
+            title: {
+                text: '{{unit}}'
+            }          
+        },
+        series: [{ name: n1 ,data: data},{name: n2, data:data1},{name: n3, data:data2}]
+    
+    });
 });
 </script>
 

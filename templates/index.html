@@ -1,97 +1,70 @@
 {% extends "base.html" %}
 {% block title %}
-Index
+Graph
 {% endblock %}
 {% block content %}
-        
-        <div class="">
+<div id="container" class="col-md-6 col-sm-6 col-xs-12" style="width: 1000px; height: 400px; margin: 0 auto"></div>
+<script language="JavaScript">
+$(document).ready(function() {
+    var chart = new Highcharts.Chart({
+        title : {
+            text: '{{name}}'   
+        },
+        global: {
+            useUTC: false,
+        },
+        chart: {
+            renderTo: 'container',
+            zoomType: 'xy',
+            type: 'spline',
+            animation: Highcharts.svg, // don't animate in old IE
+            marginRight: 10,
+            events: {
+                load: function () {
 
-          <div class="page-title">
-            <div class="title_left">
-              <h3>
-                    Full Data Record
-                    
-                </h3>
-            </div>
+                    // set up the updating of the chart each second
+                    var series = this.series[0];
+                    setInterval(function () {
+                        var x = (new Date()).getTime(), // current time
+                            y = Math.random();
+                        series.addPoint([x, y], true, true);
+                    }, 1000);
+                }
+            }
+        },
+        xAxis: {
+            type : 'datetime',
+            tickPixelInterval: 3600
+        },
+        yAxis : {
+            title: {
+                text: '{{unit}}'
+            }          
+        },
 
-            <div class="title_right">
-              <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-                <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Search for...">
-                  <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">Go!</button>
-                        </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="clearfix"></div>
+        exporting: {
+            enabled: false
+        },
+        series: [{
+            name: 'Random data',
+            data: (function () {
+                // generate an array of random data
+                var data = [],
+                    time = (new Date()).getTime(),
+                    i;
 
+                for (i = -999; i <= 0; i += 1) {
+                    data.push([
+                        time + i * 1000,
+                        Math.round(Math.random() * 100)
+                    ]);
+                }
+                return data;
+            }())
+        }]
+    
+    });
+});
+</script>
 
-          <div class="row">
-
-            <div class="col-md-12 col-sm-12 col-xs-12">
-              <div class="x_panel">
-                <div class="x_title">
-                  <h2>Full Data Record</h2>
-                  <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Settings 1</a>
-                        </li>
-                        <li><a href="#">Settings 2</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
-                  </ul>
-                  <div class="clearfix"></div>
-                </div>
-                <div class="x_content">
-
-                  <table id="datatable1" class="table">
-                    <thead>
-                      <tr>
-                         <th>Date</th>
-                            <th>Time</th>
-                            <th>Serial</th>
-                             <th>PM10</th>
-                            <th>PM2.5</th>
-                            <th>PM1</th>
-                             <th>NO2</th>
-                            <th>CO2</th>
-                            <th>CO</th>
-                            <th>Humidity</th>
-                            <th>Temperature</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {% if messages %}
-                    {% for message in messages %}
-                    <tr>
-                          <td> {{ messages[message].date }} </td>
-                          <td> {{ messages[message].time }} </td>
-                          <td> {{ messages[message].serial }} </td>
-                          <td> {{ messages[message].pm10 }} </td>
-                          <td> {{ messages[message].pm2 }} </td>
-                          <td> {{ messages[message].pm1 }} </td>
-                          <td> {{ messages[message].no2 }} </td>
-                          <td> {{ messages[message].co2 }} </td>
-                          <td> {{ messages[message].co }} </td>
-                          <td> {{ messages[message].humidity }} </td>
-                          <td> {{ messages[message].temp }} </td>
-                    </tr>
-                {% endfor %}
-                {% endif %}
-                    </tbody>
-                  </table>
-
-                </div>
-              </div>
-            </div>
-          </div>
 {% endblock %}
