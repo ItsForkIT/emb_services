@@ -3,15 +3,15 @@ from firebase import firebase
 from flask import request
 from flask import request, render_template
 import json
-from html.parser import HTMLParser
+from HTMLParser import HTMLParser
 
 app = Flask (__name__)
 
 firebase = firebase.FirebaseApplication('https://haha-4cf04.firebaseio.com', None)
 result = firebase.get('/sensors',None)
 
-@app.route('/')
-def table():
+@app.route('/real')
+def real():
 	result = firebase.get('/sensors',None)
 	name = "RealTime Graph"
 	pm2Data = []
@@ -68,6 +68,11 @@ def graph2():
 		time.append(result1[values]['DateTime'])
 		
 	return render_template('graph.html', name=dataOf, temp=zip(time,temp), humid=zip(time,humid), n1="Temperature", n2="Humidity")
+
+@app.route('/')
+def dashboard():
+	return render_template('dashboard.html')
+
 
 if __name__ == '__main__':
     app.jinja_env.auto_reload = True
